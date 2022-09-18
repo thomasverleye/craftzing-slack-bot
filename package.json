@@ -1,6 +1,9 @@
 {
   "name": "@wouterds/avocado-slack-bot",
   "private": true,
+  "scripts": {
+    "dev": "nodemon"
+  },
   "dependencies": {
     "dotenv": "^16.0.2",
     "tsconfig-paths": "^4.1.0"
