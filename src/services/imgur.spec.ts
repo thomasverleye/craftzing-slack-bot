@@ -7,6 +7,10 @@ import Imgur from './imgur';
 jest.mock('fs');
 jest.mock('axios');
 
+afterEach(() => {
+  jest.clearAllMocks();
+});
+
 const mockReadStream = jest.fn().mockImplementation(() => {
   const readable = new Readable();
   readable.push('hello');
@@ -26,6 +30,27 @@ describe('Imgur.upload', () => {
 
     // then
     expect(axios.post).toHaveBeenCalledTimes(0);
+    expect(response).toBe(false);
+  });
+
+  test('when path provided, and the api upload has failed, the function should return false', async () => {
+    // given
+    const path = 'image.jpg';
+    jest.spyOn(fs, 'createReadStream').mockReturnValueOnce(mockReadStream());
+    jest.spyOn(axios, 'post').mockReturnValueOnce(
+      new Promise((resolve) =>
+        resolve({
+          status: 500,
+        }),
+      ),
+    );
+
+    // when
+    const response = await Imgur.upload(path);
+
+    // then
+    expect(fs.createReadStream).toHaveBeenCalledTimes(1);
+    expect(axios.post).toHaveBeenCalledTimes(1);
     expect(response).toBe(false);
   });
 
