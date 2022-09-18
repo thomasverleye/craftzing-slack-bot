@@ -1,6 +1,7 @@
 # @wouterds/avocado-slack-bot
 
 ![linting](https://github.com/wouterds/avocado-slack-bot/workflows/linting/badge.svg)
+![tests](https://github.com/wouterds/avocado-slack-bot/workflows/tests/badge.svg)
 
 ## Setup
 
