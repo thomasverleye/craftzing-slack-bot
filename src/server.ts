@@ -1,5 +1,9 @@
+import Imgur from 'services/imgur';
+
 console.log('Hello World');
 
-while (true) {
-  // no-op
-}
+(async () => {
+  console.log('Uploading image...');
+  const link = await Imgur.upload('./goed-gedaan.jpg');
+  console.log({ link });
+})();
