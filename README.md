@@ -1,6 +1,7 @@
 # @wouterds/avocado-slack-bot
 
 ![code-review](https://github.com/wouterds/avocado-slack-bot/workflows/code-review/badge.svg)
+![docker-image](https://github.com/wouterds/avocado-slack-bot/workflows/docker-image/badge.svg)
 
 ## Setup
 
