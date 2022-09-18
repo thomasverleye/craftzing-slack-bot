@@ -2,6 +2,7 @@
 
 ![code-review](https://github.com/wouterds/avocado-slack-bot/workflows/code-review/badge.svg)
 ![docker-image](https://github.com/wouterds/avocado-slack-bot/workflows/docker-image/badge.svg)
+![docker image size](https://ghcr-badge.herokuapp.com/wouterds/avocado-slack-bot/size)
 
 ## Setup
 
