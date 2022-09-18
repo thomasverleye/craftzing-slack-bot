@@ -6,7 +6,8 @@
     "build": "rm -rf ./dist && tsc",
     "dev": "nodemon",
     "lint": "eslint --ext '.ts,.js' src && tsc --noEmit",
-    "lint:fix": "eslint --ext '.ts,.js' --fix src"
+    "lint:fix": "eslint --ext '.ts,.js' --fix src",
+    "test": "jest"
   },
   "dependencies": {
     "axios": "^0.27.2",
