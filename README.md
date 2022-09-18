@@ -1,5 +1,7 @@
 # @wouterds/avocado-slack-bot
 
+![linting](https://github.com/wouterds/avocado-slack-bot/workflows/linting/badge.svg)
+
 ## Setup
 
 ### Dependencies
