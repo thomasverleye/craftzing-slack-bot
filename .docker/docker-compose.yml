@@ -1,0 +1,10 @@
+version: '2.1'
+
+services:
+  node:
+    image: ghcr.io/wouterds/avocado-slack-bot
+    container_name: wouterds.avocado-slack-bot
+    restart: unless-stopped
+    mem_limit: 64mb
+    env_file:
+      - .env
