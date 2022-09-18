@@ -4,6 +4,10 @@ import { createReadStream } from 'fs';
 
 class Imgur {
   static async upload(path: string) {
+    if (!path) {
+      return false;
+    }
+
     const data = new FormData();
     data.append('image', createReadStream(path));
 
