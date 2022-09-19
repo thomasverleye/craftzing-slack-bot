@@ -8,3 +8,5 @@ services:
     mem_limit: 64mb
     env_file:
       - .env
+    volumes:
+      - ~/webcam.jpg:/webcam.jpg
