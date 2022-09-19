@@ -1,5 +1,7 @@
 import { App as Slack } from '@slack/bolt';
 
+import { handleAvocadoMessage } from './message-handlers';
+
 (async () => {
   const slack = new Slack({
     signingSecret: process.env.SLACK_SIGNING_SECRET,
@@ -8,11 +10,7 @@ import { App as Slack } from '@slack/bolt';
     appToken: process.env.SLACK_APP_TOKEN,
   });
 
-  slack.message('hello', async ({ message, say }) => {
-    console.log({ message });
-
-    await say('hello');
-  });
+  slack.message('!avocado', handleAvocadoMessage);
 
   await slack.start();
 
