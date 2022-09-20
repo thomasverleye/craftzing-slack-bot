@@ -1,4 +1,5 @@
 import { App as Slack } from '@slack/bolt';
+import { handleHelloMessage } from 'message-handlers/hello';
 
 import { handleAvocadoMessage } from './message-handlers';
 
@@ -10,6 +11,7 @@ import { handleAvocadoMessage } from './message-handlers';
     appToken: process.env.SLACK_APP_TOKEN,
   });
 
+  slack.message('hello', handleHelloMessage);
   slack.message('!avocado', handleAvocadoMessage);
 
   await slack.start();
