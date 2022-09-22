@@ -17,7 +17,7 @@ export const handleJokeMessage = async ({ say }: Options) => {
 
   await say(joke[0]);
 
-  await sleep(ms('3 seconds'));
+  await sleep(ms('3.5 seconds'));
 
   await say(joke[1]);
 };
