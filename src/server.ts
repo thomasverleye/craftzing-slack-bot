@@ -1,6 +1,10 @@
 import { App as Slack } from '@slack/bolt';
 
-import { handleAvocadoMessage, handleHelloMessage } from './message-handlers';
+import {
+  handleAvocadoMessage,
+  handleHelloMessage,
+  handleJokeMessage,
+} from './message-handlers';
 
 (async () => {
   const slack = new Slack({
@@ -12,6 +16,7 @@ import { handleAvocadoMessage, handleHelloMessage } from './message-handlers';
 
   slack.message('hello', handleHelloMessage);
   slack.message('!avocado', handleAvocadoMessage);
+  slack.message('!joke', handleJokeMessage);
 
   await slack.start();
 
