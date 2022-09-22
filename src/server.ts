@@ -4,6 +4,7 @@ import {
   handleAvocadoMessage,
   handleHelloMessage,
   handleJokeMessage,
+  handleTodayBirthdayMessage,
 } from './message-handlers';
 
 (async () => {
@@ -17,6 +18,7 @@ import {
   slack.message('hello', handleHelloMessage);
   slack.message('!avocado', handleAvocadoMessage);
   slack.message('!joke', handleJokeMessage);
+  slack.message("Today it's the birthday of", handleTodayBirthdayMessage);
 
   await slack.start();
 
