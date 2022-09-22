@@ -10,5 +10,5 @@ export const handleHelloMessage = async ({ message, say }: Options) => {
     return;
   }
 
-  say('Hello! :wave:');
+  await say('Hello! :wave:');
 };

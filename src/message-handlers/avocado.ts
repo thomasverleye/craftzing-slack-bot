@@ -11,11 +11,11 @@ interface Options {
 export const handleAvocadoMessage = async ({ say }: Options) => {
   const url = await Imgur.upload('/webcam.jpg');
   if (!url) {
-    say('Sorry, having trouble uploading photo :cry:');
+    await say('Sorry, having trouble uploading photo :cry:');
     return;
   }
 
-  say({
+  await say({
     blocks: [
       {
         type: 'section',
