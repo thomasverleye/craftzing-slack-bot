@@ -1,5 +1,5 @@
 {
-  "name": "@wouterds/avocado-slack-bot",
+  "name": "@wouterds/craftzing-slack-bot",
   "private": true,
   "scripts": {
     "prepare": "husky install",

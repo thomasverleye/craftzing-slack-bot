@@ -1,8 +1,8 @@
-# @wouterds/avocado-slack-bot
+# @wouterds/craftzing-slack-bot
 
-![code-review](https://github.com/wouterds/avocado-slack-bot/workflows/code-review/badge.svg)
-![docker-image](https://github.com/wouterds/avocado-slack-bot/workflows/docker-image/badge.svg)
-![docker image size](https://ghcr-badge.herokuapp.com/wouterds/avocado-slack-bot/size)
+![code-review](https://github.com/wouterds/craftzing-slack-bot/workflows/code-review/badge.svg)
+![docker-image](https://github.com/wouterds/craftzing-slack-bot/workflows/docker-image/badge.svg)
+![docker image size](https://ghcr-badge.herokuapp.com/wouterds/craftzing-slack-bot/size)
 
 ## Setup
 
