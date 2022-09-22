@@ -17,7 +17,6 @@ nvm install
 yarn
 ```
 
-
 ### VSCode
 
 #### Plugins
