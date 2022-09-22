@@ -6,7 +6,7 @@ interface Options {
 }
 
 export const handleHelloMessage = async ({ message, say }: Options) => {
-  if (message.channel_type !== 'im') {
+  if (!['im', 'mpim'].includes(message.channel_type)) {
     return;
   }
 
