@@ -19,10 +19,6 @@ export const handleAvocadoMessage = async ({ say }: Options) => {
     blocks: [
       {
         type: 'section',
-        text: {
-          type: 'plain_text',
-          text: 'Heeeey, look at this! :avocado: :avocado: :avocado:',
-        },
         fields: [
           {
             type: 'mrkdwn',
