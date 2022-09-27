@@ -46,7 +46,7 @@ export const handleAvocadoMessage = async ({
         text: `To avoid spamming public channels there's a limit on how many times I can post an avocado image. Channel has ${distance} more to cooldown.`,
       });
 
-      await sleep(ms('1 seconds'));
+      await sleep(ms('5 seconds'));
 
       await say({
         thread_ts: message.event_ts,
