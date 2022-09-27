@@ -1,5 +1,4 @@
 import { MessageEvent, SayFn } from '@slack/bolt';
-import { WebClient } from '@slack/web-api';
 import { AVOCADO_BIRTHDAY, AVOCADO_CHANNEL_POST_INTERVAL } from 'config';
 import {
   addHours,
@@ -20,13 +19,11 @@ const lastPostPerChannel: Record<string, Date> = {
 interface Options {
   say: SayFn;
   message: MessageEvent & { thread_ts?: string; user?: string };
-  client: WebClient;
 }
 
 export const handleAvocadoMessage = async ({
   message: { thread_ts, ...message },
   say,
-  client,
 }: Options) => {
   if (message.channel_type === 'channel') {
     // try to avoid spamming the channel with avocado images
@@ -44,25 +41,17 @@ export const handleAvocadoMessage = async ({
         ),
       );
 
-      await client.reactions.add({
-        name: 'x',
-        channel: message.channel,
-        timestamp: message.ts,
+      await say({
+        thread_ts: message.event_ts,
+        text: `To avoid spamming public channels there's a limit on how many times I can post an avocado image. Channel has ${distance} more to cooldown.`,
       });
 
-      if (message.user) {
-        await say({
-          thread_ts,
-          channel: message.user,
-          text: `To avoid spamming public channels there's a limit on how many times I can post an avocado image. Please try again in ${distance}.`,
-        });
-        await sleep(ms('2 seconds'));
-        await say({
-          thread_ts,
-          channel: message.user,
-          text: `You can always DM with me though, as much as you want!`,
-        });
-      }
+      await sleep(ms('1 seconds'));
+
+      await say({
+        thread_ts: message.event_ts,
+        text: `But, you can always DM with me though, as much as you want!`,
+      });
       return;
     }
 
