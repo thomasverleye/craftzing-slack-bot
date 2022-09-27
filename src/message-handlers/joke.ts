@@ -5,19 +5,31 @@ import DadJokes from 'services/dad-jokes';
 
 interface Options {
   say: SayFn;
-  message: MessageEvent;
+  message: MessageEvent & { thread_ts?: string };
 }
 
-export const handleJokeMessage = async ({ say }: Options) => {
+export const handleJokeMessage = async ({
+  message: { thread_ts },
+  say,
+}: Options) => {
   const joke = await DadJokes.randomJoke();
   if (!joke) {
-    await say('Sorry, having trouble finding a joke :cry:');
+    await say({
+      text: 'Sorry, having trouble finding a joke :cry:',
+      thread_ts,
+    });
     return;
   }
 
-  await say(joke[0]);
+  await say({
+    text: joke[0],
+    thread_ts,
+  });
 
   await sleep(ms('3.5 seconds'));
 
-  await say(joke[1]);
+  await say({
+    text: joke[1],
+    thread_ts,
+  });
 };
