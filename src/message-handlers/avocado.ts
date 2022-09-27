@@ -9,9 +9,27 @@ interface Options {
 }
 
 export const handleAvocadoMessage = async ({
-  message: { thread_ts },
+  message: { thread_ts, ...message },
   say,
 }: Options) => {
+  // antwerpen
+  if (message.channel === 'C023RTSH98T') {
+    await say({
+      thread_ts,
+      unfurl_links: false,
+      blocks: [
+        {
+          type: 'section',
+          text: {
+            type: 'mrkdwn',
+            text: "Allright allright, we'll need a couple of things before we can get started! :avocado::seedling:\n• avocado pit\n• Raspberry Pi [<https://shop.pimoroni.com/products/raspberry-pi-3-a-plus|link>]\n• cheap USB webcam [<https://www.aliexpress.com/item/1005003077609523.html|link>]",
+          },
+        },
+      ],
+    });
+    return;
+  }
+
   const url = await Imgur.upload('/webcam.jpg');
   if (!url) {
     await say({
