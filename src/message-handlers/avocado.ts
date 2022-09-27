@@ -1,17 +1,75 @@
 import { MessageEvent, SayFn } from '@slack/bolt';
-import { AVOCADO_BIRTHDAY } from 'config';
-import { format, formatDistanceToNowStrict } from 'date-fns';
+import { WebClient } from '@slack/web-api';
+import { AVOCADO_BIRTHDAY, AVOCADO_CHANNEL_POST_INTERVAL } from 'config';
+import {
+  addHours,
+  differenceInHours,
+  format,
+  formatDistanceStrict,
+  formatDistanceToNowStrict,
+} from 'date-fns';
+import ms from 'ms';
+import { sleep } from 'radash';
 import Imgur from 'services/imgur';
+
+// in memory cache of the last avocado image we posted
+const lastPostPerChannel: Record<string, Date> = {
+  // [channelId]: Date
+};
 
 interface Options {
   say: SayFn;
-  message: MessageEvent & { thread_ts?: string };
+  message: MessageEvent & { thread_ts?: string; user?: string };
+  client: WebClient;
 }
 
 export const handleAvocadoMessage = async ({
   message: { thread_ts, ...message },
   say,
+  client,
 }: Options) => {
+  if (message.channel_type === 'channel') {
+    // try to avoid spamming the channel with avocado images
+    // if less than {AVOCADO_CHANNEL_POST_INTERVAL} hours ago, ignore
+    if (
+      lastPostPerChannel[message.channel] &&
+      differenceInHours(new Date(), lastPostPerChannel[message.channel]) <
+        AVOCADO_CHANNEL_POST_INTERVAL
+    ) {
+      const distance = formatDistanceStrict(
+        new Date(),
+        addHours(
+          lastPostPerChannel[message.channel],
+          AVOCADO_CHANNEL_POST_INTERVAL,
+        ),
+      );
+
+      await client.reactions.add({
+        name: 'x',
+        channel: message.channel,
+        timestamp: message.ts,
+      });
+
+      if (message.user) {
+        await say({
+          thread_ts,
+          channel: message.user,
+          text: `To avoid spamming public channels there's a limit on how many times I can post an avocado image. Please try again in ${distance}.`,
+        });
+        await sleep(ms('2 seconds'));
+        await say({
+          thread_ts,
+          channel: message.user,
+          text: `You can always DM with me though, as much as you want!`,
+        });
+      }
+      return;
+    }
+
+    // keep track of the last time we posted an avocado photo
+    lastPostPerChannel[message.channel] = new Date();
+  }
+
   // antwerpen
   if (message.channel === 'C023RTSH98T') {
     await say({
