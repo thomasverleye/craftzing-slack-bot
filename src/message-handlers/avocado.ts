@@ -5,17 +5,24 @@ import Imgur from 'services/imgur';
 
 interface Options {
   say: SayFn;
-  message: MessageEvent;
+  message: MessageEvent & { thread_ts?: string };
 }
 
-export const handleAvocadoMessage = async ({ say }: Options) => {
+export const handleAvocadoMessage = async ({
+  message: { thread_ts },
+  say,
+}: Options) => {
   const url = await Imgur.upload('/webcam.jpg');
   if (!url) {
-    await say('Sorry, having trouble uploading photo :cry:');
+    await say({
+      text: 'Sorry, having trouble uploading photo :cry:',
+      thread_ts,
+    });
     return;
   }
 
   await say({
+    thread_ts,
     blocks: [
       {
         type: 'section',
