@@ -1,16 +1,35 @@
 import { MessageEvent, SayFn } from '@slack/bolt';
+import { WebClient } from '@slack/web-api';
 import Giphy from 'services/giphy';
 
 interface Options {
   say: SayFn;
   message: MessageEvent;
+  client: WebClient;
 }
 
-export const handleTodayBirthdayMessage = async ({ say, message }: Options) => {
+export const handleTodayBirthdayMessage = async ({
+  say,
+  message,
+  client,
+}: Options) => {
+  await client.reactions.add({
+    name: 'birthday',
+    channel: message.channel,
+    timestamp: message.ts,
+  });
+
+  await client.reactions.add({
+    name: 'partying_face',
+    channel: message.channel,
+    timestamp: message.ts,
+  });
+
   const giphyUrl = await Giphy.randomGif('birthday');
   if (giphyUrl) {
     await say({
       thread_ts: message.event_ts,
+      text: 'Happy birthday!!',
       blocks: [
         {
           type: 'section',
