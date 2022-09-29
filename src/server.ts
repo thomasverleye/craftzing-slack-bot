@@ -3,6 +3,7 @@ import { App as Slack } from '@slack/bolt';
 import {
   handleAvocadoMessage,
   handleBeerTimeMessage,
+  handleCroqueMessage,
   handleHelloMessage,
   handleJokeMessage,
   handleTodayBirthdayMessage,
@@ -17,6 +18,7 @@ import {
   });
 
   slack.message('hello', handleHelloMessage);
+  slack.message('croque', handleCroqueMessage);
   slack.message('!avocado', handleAvocadoMessage);
   slack.message('!joke', handleJokeMessage);
   slack.message("Today it's the birthday of", handleTodayBirthdayMessage);
