@@ -18,11 +18,15 @@ import {
   });
 
   slack.message('hello', handleHelloMessage);
+  slack.message('Hello', handleHelloMessage);
+  slack.message('hallo', handleHelloMessage);
+  slack.message('Hallo', handleHelloMessage);
   slack.message('croque', handleCroqueMessage);
+  slack.message('Croque', handleCroqueMessage);
   slack.message('!avocado', handleAvocadoMessage);
   slack.message('!joke', handleJokeMessage);
   slack.message("Today it's the birthday of", handleTodayBirthdayMessage);
-  slack.message('it is now beer time', handleBeerTimeMessage);
+  slack.message('beer time', handleBeerTimeMessage);
 
   await slack.start();
 
