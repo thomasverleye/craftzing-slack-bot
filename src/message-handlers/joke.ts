@@ -1,17 +1,15 @@
-import { MessageEvent, SayFn } from '@slack/bolt';
+import { GenericMessageEvent, SlackEventMiddlewareArgs } from '@slack/bolt';
 import ms from 'ms';
 import { sleep } from 'radash';
 import DadJokes from 'services/dad-jokes';
 
-interface Options {
-  say: SayFn;
-  message: MessageEvent & { thread_ts?: string };
-}
+export const handleJokeMessage = async (
+  options: SlackEventMiddlewareArgs<'message'>,
+) => {
+  const { say } = options;
+  const message = options.message as GenericMessageEvent;
+  const { thread_ts } = message;
 
-export const handleJokeMessage = async ({
-  message: { thread_ts },
-  say,
-}: Options) => {
   const joke = await DadJokes.randomJoke();
   if (!joke) {
     await say({

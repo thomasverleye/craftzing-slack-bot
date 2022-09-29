@@ -1,4 +1,4 @@
-import { MessageEvent, SayFn } from '@slack/bolt';
+import { GenericMessageEvent, SlackEventMiddlewareArgs } from '@slack/bolt';
 import { AVOCADO_BIRTHDAY, AVOCADO_CHANNEL_POST_INTERVAL } from 'config';
 import {
   addHours,
@@ -16,15 +16,13 @@ const lastPostPerChannel: Record<string, Date> = {
   // [channelId]: Date
 };
 
-interface Options {
-  say: SayFn;
-  message: MessageEvent & { thread_ts?: string; user?: string };
-}
+export const handleAvocadoMessage = async (
+  options: SlackEventMiddlewareArgs<'message'>,
+) => {
+  const { say } = options;
+  const message = options.message as GenericMessageEvent;
+  const { thread_ts } = message;
 
-export const handleAvocadoMessage = async ({
-  message: { thread_ts, ...message },
-  say,
-}: Options) => {
   if (message.channel_type === 'channel') {
     // try to avoid spamming the channel with avocado images
     // if less than {AVOCADO_CHANNEL_POST_INTERVAL} hours ago, ignore

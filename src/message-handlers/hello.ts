@@ -1,11 +1,10 @@
-import { MessageEvent, SayFn } from '@slack/bolt';
+import { SlackEventMiddlewareArgs } from '@slack/bolt';
 
-interface Options {
-  say: SayFn;
-  message: MessageEvent;
-}
+export const handleHelloMessage = async (
+  options: SlackEventMiddlewareArgs<'message'>,
+) => {
+  const { message, say } = options;
 
-export const handleHelloMessage = async ({ message, say }: Options) => {
   if (!['im', 'mpim'].includes(message.channel_type)) {
     return;
   }

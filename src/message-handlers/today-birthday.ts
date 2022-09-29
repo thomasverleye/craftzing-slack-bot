@@ -1,10 +1,8 @@
-import { MessageEvent, SayFn } from '@slack/bolt';
+import { SlackEventMiddlewareArgs } from '@slack/bolt';
 import { WebClient } from '@slack/web-api';
 import Giphy from 'services/giphy';
 
-interface Options {
-  say: SayFn;
-  message: MessageEvent;
+interface Options extends SlackEventMiddlewareArgs<'message'> {
   client: WebClient;
 }
 

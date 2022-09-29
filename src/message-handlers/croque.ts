@@ -1,12 +1,14 @@
-import { MessageEvent } from '@slack/bolt';
+import { GenericMessageEvent, SlackEventMiddlewareArgs } from '@slack/bolt';
 import { WebClient } from '@slack/web-api';
 
-interface Options {
-  message: MessageEvent;
+interface Options extends SlackEventMiddlewareArgs<'message'> {
   client: WebClient;
 }
 
-export const handleCroqueMessage = async ({ client, message }: Options) => {
+export const handleCroqueMessage = async (options: Options) => {
+  const { client } = options;
+  const message = options.message as GenericMessageEvent;
+
   await client.reactions.add({
     name: 'sandwich',
     channel: message.channel,
