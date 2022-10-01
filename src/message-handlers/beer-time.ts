@@ -6,7 +6,7 @@ export const handleBeerTimeMessage = async (
   const { say, message } = options;
 
   await say({
-    text: "Ayoo, let's goooo!!! :beer: :beer: :beer:",
+    text: "Ayoo, let's goooo!!! :beer::beer::beer:",
     thread_ts: message.event_ts,
   });
 };
