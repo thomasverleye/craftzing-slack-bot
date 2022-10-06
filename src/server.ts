@@ -4,6 +4,7 @@ import {
   handleAvocadoMessage,
   handleBeerTimeMessage,
   handleCroqueMessage,
+  handleDefineMessage,
   handleHelloMessage,
   handleJokeMessage,
   handleTodayBirthdayMessage,
@@ -25,6 +26,7 @@ import {
   slack.message('Croque', handleCroqueMessage);
   slack.message('!avocado', handleAvocadoMessage);
   slack.message('!joke', handleJokeMessage);
+  slack.message('!define', handleDefineMessage);
   slack.message("Today it's the birthday of", handleTodayBirthdayMessage);
   slack.message('beer time', handleBeerTimeMessage);
 
