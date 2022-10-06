@@ -16,12 +16,8 @@ class UrbanDictionary {
   static async define(term: string) {
     try {
       const { status, data: response } = await axios.get(
-        `https://${process.env.URBAN_DICTIONARY_API_HOST}/define`,
+        `https://api.urbandictionary.com/v0/define`,
         {
-          headers: {
-            'X-RapidAPI-Key': process.env.URBAN_DICTIONARY_API_KEY as string,
-            'X-RapidAPI-Host': process.env.URBAN_DICTIONARY_API_HOST as string,
-          },
           params: { term },
         },
       );
