@@ -43,9 +43,16 @@ class UrbanDictionary {
               return false;
             }
 
+            if (definition.thumbs_down === 0) {
+              return false;
+            }
+
             return definition.approval_rate > 50;
           })
-          .sort((a: Definition, b: Definition) => b.written_on > a.written_on);
+          .sort(
+            (a: Definition, b: Definition) =>
+              b.written_on.getTime() - a.written_on.getTime(),
+          );
 
         return definitions.shift() as Definition;
       }
