@@ -47,8 +47,10 @@ class UrbanDictionary {
               return false;
             }
 
-            return definition.approval_rate > 50;
+            return true;
           })
+          .sort((a: Definition, b: Definition) => b.thumbs_up - a.thumbs_up)
+          .slice(0, 3)
           .sort(
             (a: Definition, b: Definition) =>
               b.written_on.getTime() - a.written_on.getTime(),
