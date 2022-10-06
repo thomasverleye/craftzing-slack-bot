@@ -1,8 +1,7 @@
 import { GenericMessageEvent, SlackEventMiddlewareArgs } from '@slack/bolt';
 import { format } from 'date-fns';
-import { remark } from 'remark';
+import removeMarkdown from 'remove-markdown';
 import UrbanDictionary from 'services/urban-dictionary';
-import strip from 'strip-markdown';
 
 export const handleDefineMessage = async (
   options: SlackEventMiddlewareArgs<'message'>,
@@ -36,11 +35,9 @@ export const handleDefineMessage = async (
         type: 'section',
         text: {
           type: 'mrkdwn',
-          text: `>*Definition:*\n>${await remark()
-            .use(strip)
-            .process(result.definition)}\n>*Example:*\n>${await remark()
-            .use(strip)
-            .process(result.example)}`,
+          text: `>*Definition:*\n>${removeMarkdown(
+            result.definition,
+          )}\n>*Example:*\n>${removeMarkdown(result.example)}`,
         },
       },
       {
