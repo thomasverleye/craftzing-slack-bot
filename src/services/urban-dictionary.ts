@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { shuffle } from 'radash';
 import RemoveMarkdown from 'remove-markdown';
 
 type Definition = {
@@ -50,13 +51,9 @@ class UrbanDictionary {
             return true;
           })
           .sort((a: Definition, b: Definition) => b.thumbs_up - a.thumbs_up)
-          .slice(0, 3)
-          .sort(
-            (a: Definition, b: Definition) =>
-              b.written_on.getTime() - a.written_on.getTime(),
-          );
+          .slice(0, 3);
 
-        return definitions.shift() as Definition;
+        return shuffle(definitions).shift() as Definition;
       }
 
       return false;
