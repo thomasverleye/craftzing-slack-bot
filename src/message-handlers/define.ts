@@ -37,7 +37,7 @@ export const handleDefineMessage = async (
           type: 'mrkdwn',
           text: `>*Definition:*\n>${removeMarkdown(
             result.definition,
-          )}\n>*Example:*\n>${removeMarkdown(result.example)}`,
+          )}\n>\n>*Example:*\n>${removeMarkdown(result.example)}`,
         },
       },
       {
