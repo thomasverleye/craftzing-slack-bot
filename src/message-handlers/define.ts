@@ -1,6 +1,5 @@
 import { GenericMessageEvent, SlackEventMiddlewareArgs } from '@slack/bolt';
 import { format } from 'date-fns';
-import removeMarkdown from 'remove-markdown';
 import UrbanDictionary from 'services/urban-dictionary';
 
 export const handleDefineMessage = async (
@@ -35,9 +34,17 @@ export const handleDefineMessage = async (
         type: 'section',
         text: {
           type: 'mrkdwn',
-          text: `>*Definition:*\n>${removeMarkdown(
-            result.definition,
-          )}\n>\n>*Example:*\n>${removeMarkdown(result.example)}`,
+          text: `>*Definition:*\n>${result.definition
+            .replace(/[\r\n]/gm, '\n>')
+            .replace(
+              /\[([\w\s]+)\]+/gm,
+              `<https://www.urbandictionary.com/define.php?term=$1|$1>`,
+            )}\n>\n>*Example:*\n>${result.example
+            .replace(/[\r\n]/gm, '\n>')
+            .replace(
+              /\[([\w\s]+)\]+/gm,
+              `<https://www.urbandictionary.com/define.php?term=$1|$1>`,
+            )}`,
         },
       },
       {
@@ -45,12 +52,10 @@ export const handleDefineMessage = async (
         elements: [
           {
             type: 'mrkdwn',
-            text: `Approval rate: ${Math.ceil(
-              100 *
-                (result.thumbs_up / (result.thumbs_up + result.thumbs_down)),
-            )}% | Posted on ${format(result.written_on, 'MMMM do, yyyy')} by ${
-              result.author
-            } | ${result.permalink}`,
+            text: `Approval rate: ${result.approval_rate}% | Posted on ${format(
+              result.written_on,
+              'MMMM do, yyyy',
+            )} by ${result.author} | ${result.permalink}`,
           },
         ],
       },
