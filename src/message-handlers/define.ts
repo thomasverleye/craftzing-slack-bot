@@ -52,7 +52,9 @@ export const handleDefineMessage = async (
         elements: [
           {
             type: 'mrkdwn',
-            text: `Approval rate: ${result.approval_rate}% | Posted on ${format(
+            text: `Thumbs up: ${result.thumbs_up}, thumbs down: ${
+              result.thumbs_down
+            }, approval rate: ${result.approval_rate}%\nPosted on ${format(
               result.written_on,
               'MMMM do, yyyy',
             )} by ${result.author} | ${result.permalink}`,
