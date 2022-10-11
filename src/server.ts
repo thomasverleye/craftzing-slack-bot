@@ -1,5 +1,4 @@
 import { App as Slack } from '@slack/bolt';
-import TextRecognition from 'services/text-recognition';
 
 import {
   handleAvocadoMessage,
@@ -33,6 +32,5 @@ import {
 
   await slack.start();
 
-  const text = await TextRecognition.detect('/webcam.jpg');
-  console.log({ text });
+  console.log('⚡️ Slack bot started!');
 })();
