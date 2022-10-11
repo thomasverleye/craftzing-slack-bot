@@ -9,7 +9,7 @@ export enum TextRecognitionLanguage {
 class TextRecognition {
   private static async prepImage(path: string) {
     return await sharp(path)
-      .resize(1024)
+      .resize(1000)
       .greyscale()
       .threshold()
       .jpeg()
