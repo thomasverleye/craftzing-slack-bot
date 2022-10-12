@@ -1,5 +1,6 @@
 import { GenericMessageEvent, SlackEventMiddlewareArgs } from '@slack/bolt';
 import { getHours } from 'date-fns';
+import Imgur from 'services/imgur';
 import TextRecognition from 'services/text-recognition';
 
 export const handleQuoteOfTheDayMessage = async (
@@ -18,8 +19,8 @@ export const handleQuoteOfTheDayMessage = async (
     return;
   }
 
-  const quote = await TextRecognition.detect('/webcam.jpg');
-  if (!quote) {
+  const result = await TextRecognition.detect('/webcam.jpg');
+  if (!result?.text) {
     await say({
       text: "Sorry, coudn't read quote :cry:",
       thread_ts: thread_ts || message.event_ts,
@@ -27,8 +28,32 @@ export const handleQuoteOfTheDayMessage = async (
     return;
   }
 
-  await say({
+  const quoteMessage = await say({
     thread_ts,
-    text: `>_${quote}_`,
+    text: `>_${result.text}_`,
+  });
+
+  if (!quoteMessage.message?.ts) {
+    return;
+  }
+
+  const url = await Imgur.upload(result.path);
+  if (!url) {
+    return;
+  }
+
+  await say({
+    thread_ts: quoteMessage.message?.ts,
+    blocks: [
+      {
+        type: 'image',
+        image_url: url,
+        title: {
+          type: 'plain_text',
+          text: 'craftzing-avocado-ocr-prep.jpg',
+        },
+        alt_text: 'craftzing-avocado-ocr-prep.jpg',
+      },
+    ],
   });
 };
