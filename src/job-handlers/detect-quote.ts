@@ -4,17 +4,17 @@ import { compareTwoStrings } from 'string-similarity';
 let cachedQuote = '';
 
 export const handleDetectQuoteJob = async () => {
-  const quote = await TextRecognition.detect('/webcam.jpg');
-  if (!quote) {
+  const result = await TextRecognition.detect('/webcam.jpg');
+  if (!result?.text) {
     return;
   }
 
-  const similarity = compareTwoStrings(cachedQuote, quote);
+  const similarity = compareTwoStrings(cachedQuote, result.text);
   if (similarity > 0.5) {
     return;
   }
 
-  console.log({ quote });
+  cachedQuote = result.text;
 
-  cachedQuote = quote;
+  console.log({ quote: result.text });
 };
