@@ -1,5 +1,7 @@
 import { App as Slack } from '@slack/bolt';
+import cron from 'node-cron';
 
+import { handleDetectQuoteJob } from './job-handlers';
 import {
   handleAvocadoMessage,
   handleBeerTimeMessage,
@@ -7,10 +9,13 @@ import {
   handleDefineMessage,
   handleHelloMessage,
   handleJokeMessage,
+  handleQuoteOfTheDayMessage,
   handleTodayBirthdayMessage,
 } from './message-handlers';
 
 (async () => {
+  cron.schedule('* * * * *', handleDetectQuoteJob);
+
   const slack = new Slack({
     signingSecret: process.env.SLACK_SIGNING_SECRET,
     token: process.env.SLACK_BOT_TOKEN,
@@ -25,6 +30,7 @@ import {
   slack.message('croque', handleCroqueMessage);
   slack.message('Croque', handleCroqueMessage);
   slack.message('!avocado', handleAvocadoMessage);
+  slack.message('!quote', handleQuoteOfTheDayMessage);
   slack.message('!joke', handleJokeMessage);
   slack.message('!define', handleDefineMessage);
   slack.message("Today it's the birthday of", handleTodayBirthdayMessage);
