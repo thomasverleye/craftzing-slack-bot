@@ -1,6 +1,7 @@
 import TextRecognition from 'services/text-recognition';
+import { compareTwoStrings } from 'string-similarity';
 
-let lastDetectedQuote: string | null = null;
+let cachedQuote = '';
 
 export const handleDetectQuoteJob = async () => {
   const quote = await TextRecognition.detect('./webcam.jpg');
@@ -8,16 +9,12 @@ export const handleDetectQuoteJob = async () => {
     return;
   }
 
-  if (quote === lastDetectedQuote) {
+  const similarity = compareTwoStrings(cachedQuote, quote);
+  if (similarity >= 0.5) {
     return;
   }
 
-  if (lastDetectedQuote) {
-    console.log('New quote detected!', { quote });
-    return;
-  }
+  console.log('Quote detected', { quote });
 
-  console.log('Quote detected!', { quote });
-
-  lastDetectedQuote = quote;
+  cachedQuote = quote;
 };

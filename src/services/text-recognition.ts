@@ -1,3 +1,5 @@
+import { readFileSync } from 'fs';
+import { capitalize } from 'radash';
 import sharp from 'sharp';
 import Tesseract from 'tesseract.js';
 
@@ -8,7 +10,7 @@ export enum TextRecognitionLanguage {
 
 class TextRecognition {
   private static async prepImage(path: string) {
-    return await sharp(path)
+    return await sharp(readFileSync(path))
       .resize(1000)
       .greyscale()
       .threshold()
@@ -39,10 +41,18 @@ class TextRecognition {
       }
 
       return (
-        lines.reduce(
-          (acc, { text }) =>
-            `${acc} ${text.replace(/[^\w\s]/gi, '').trim()}`.trim(),
-          '',
+        capitalize(
+          lines.reduce(
+            (acc, { text }) =>
+              `${acc} ${text.replace(
+                /[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi,
+                '',
+              )}`
+                .replace(/[^\w\s]/gi, '')
+                .replace(/  +/gi, ' ')
+                .trim(),
+            '',
+          ),
         ) || null
       );
     } catch {
