@@ -9,6 +9,7 @@ import {
   handleDefineMessage,
   handleHelloMessage,
   handleJokeMessage,
+  handleQuoteOfTheDayMessage,
   handleTodayBirthdayMessage,
 } from './message-handlers';
 
@@ -29,6 +30,7 @@ import {
   slack.message('croque', handleCroqueMessage);
   slack.message('Croque', handleCroqueMessage);
   slack.message('!avocado', handleAvocadoMessage);
+  slack.message('!quote', handleQuoteOfTheDayMessage);
   slack.message('!joke', handleJokeMessage);
   slack.message('!define', handleDefineMessage);
   slack.message("Today it's the birthday of", handleTodayBirthdayMessage);
