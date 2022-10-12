@@ -40,14 +40,14 @@ export const handleAvocadoMessage = async (
       );
 
       await say({
-        thread_ts: message.event_ts,
+        thread_ts: thread_ts || message.event_ts,
         text: `To avoid spamming public channels there's a limit on how many times I can post an avocado image. Channel has ${distance} more to cooldown.`,
       });
 
       await sleep(ms('5 seconds'));
 
       await say({
-        thread_ts: message.event_ts,
+        thread_ts: thread_ts || message.event_ts,
         text: `But, you can always DM with me though, as much as you want!`,
       });
       return;
@@ -60,7 +60,7 @@ export const handleAvocadoMessage = async (
   // antwerpen
   if (message.channel === 'C023RTSH98T') {
     await say({
-      thread_ts,
+      thread_ts: thread_ts || message.event_ts,
       unfurl_links: false,
       blocks: [
         {
@@ -79,7 +79,7 @@ export const handleAvocadoMessage = async (
   if (!url) {
     await say({
       text: 'Sorry, having trouble uploading photo :cry:',
-      thread_ts,
+      thread_ts: thread_ts || message.event_ts,
     });
     return;
   }

@@ -13,7 +13,7 @@ export const handleQuoteOfTheDayMessage = async (
   if (hours < 10 || hours > 14) {
     await say({
       text: 'Only between 10:00 & 14:00 I can be sure there are optimal lighting conditions and try to read the quote from the webcam :face_with_spiral_eyes:',
-      thread_ts: thread_ts || message.ts,
+      thread_ts: thread_ts || message.event_ts,
     });
     return;
   }
@@ -22,7 +22,7 @@ export const handleQuoteOfTheDayMessage = async (
   if (!quote) {
     await say({
       text: "Sorry, coudn't read quote :cry:",
-      thread_ts: thread_ts || message.ts,
+      thread_ts: thread_ts || message.event_ts,
     });
     return;
   }
