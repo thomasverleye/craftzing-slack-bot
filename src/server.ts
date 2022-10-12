@@ -14,7 +14,7 @@ import {
 } from './message-handlers';
 
 (async () => {
-  cron.schedule('* * * * *', handleDetectQuoteJob);
+  cron.schedule('*/15 * * * *', handleDetectQuoteJob);
 
   const slack = new Slack({
     signingSecret: process.env.SLACK_SIGNING_SECRET,
