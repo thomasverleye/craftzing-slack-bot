@@ -1,7 +1,7 @@
 import { App as Slack } from '@slack/bolt';
-import cron from 'node-cron';
 
-import { handleDetectQuoteJob } from './job-handlers';
+// import cron from 'node-cron';
+// import { handleDetectQuoteJob } from './job-handlers';
 import {
   handleAvocadoMessage,
   handleBeerTimeMessage,
@@ -14,7 +14,7 @@ import {
 } from './message-handlers';
 
 (async () => {
-  cron.schedule('*/15 * * * *', handleDetectQuoteJob);
+  // cron.schedule('*/15 * * * *', handleDetectQuoteJob);
 
   const slack = new Slack({
     signingSecret: process.env.SLACK_SIGNING_SECRET,
