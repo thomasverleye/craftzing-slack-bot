@@ -2,10 +2,7 @@ name: code-review
 
 on:
   push:
-    branches:
-      - '**'
-    tags:
-      - 'v**'
+    branches: ['**']
 
 jobs:
   code-review:
