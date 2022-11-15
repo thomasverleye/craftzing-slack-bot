@@ -23,17 +23,30 @@ import {
     appToken: process.env.SLACK_APP_TOKEN,
   });
 
+  // hello
   slack.message('hello', handleHelloMessage);
   slack.message('Hello', handleHelloMessage);
   slack.message('hallo', handleHelloMessage);
   slack.message('Hallo', handleHelloMessage);
+
+  // croqueskes
   slack.message('croque', handleCroqueMessage);
   slack.message('Croque', handleCroqueMessage);
+
+  // avocado
   slack.message('!avocado', handleAvocadoMessage);
   slack.message('!quote', handleQuoteOfTheDayMessage);
+
+  // joke
   slack.message('!joke', handleJokeMessage);
+
+  // urban dictionary
   slack.message('!define', handleDefineMessage);
+
+  // birthdays
   slack.message("Today it's the birthday of", handleTodayBirthdayMessage);
+
+  // beertime
   slack.message('it is now beer time!', handleBeerTimeMessage);
 
   await slack.start();
