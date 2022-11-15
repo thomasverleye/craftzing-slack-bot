@@ -7,7 +7,7 @@
     "dev": "nodemon",
     "lint": "eslint --ext '.ts,.js' src && tsc --noEmit",
     "lint:fix": "eslint --ext '.ts,.js' --fix src",
-    "test": "jest"
+    "test": "jest --coverage"
   },
   "dependencies": {
     "@slack/bolt": "^3.12.1",
