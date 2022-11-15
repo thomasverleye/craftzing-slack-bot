@@ -3,7 +3,7 @@ version: '2.1'
 services:
   node:
     image: ghcr.io/wouterds/craftzing-slack-bot
-    container_name: wouterds.craftzing-slack-bot
+    container_name: craftzing-slack-bot
     restart: unless-stopped
     mem_limit: 256mb
     env_file:
