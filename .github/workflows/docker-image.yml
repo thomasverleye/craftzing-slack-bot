@@ -37,4 +37,10 @@ jobs:
           file: .docker/node/Dockerfile
           context: .
           push: true
-          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }},${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.event.release.tag_name }}
+          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+      - uses: docker/build-push-action@v3
+        with:
+          file: .docker/node/Dockerfile
+          context: .
+          push: ${{ github.ref_type == 'tag' }}
+          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.event.release.tag_name }}
