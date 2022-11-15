@@ -37,7 +37,8 @@ import {
   slack.message('!joke', handleJokeMessage);
 
   // birthdays
-  slack.message("Today it's the birthday of", handleTodayBirthdayMessage);
+  slack.message("it's the birthday of", handleTodayBirthdayMessage);
+  slack.message('celebrating their birthday today', handleTodayBirthdayMessage);
 
   // beertime
   slack.message('it is now beer time!', handleBeerTimeMessage);
