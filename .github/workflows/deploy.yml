@@ -2,8 +2,9 @@ name: deploy
 
 on:
   workflow_run:
-    tags:
-      - 'v*.*.*'
+    push:
+      tags:
+        - 'v**'
     workflows:
       - docker-image
     types:
