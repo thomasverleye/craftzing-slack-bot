@@ -16,6 +16,7 @@ import {
 (async () => {
   // cron.schedule('*/15 * * * *', handleDetectQuoteJob);
 
+  // Configure & create Slack instance
   const slack = new Slack({
     signingSecret: process.env.SLACK_SIGNING_SECRET,
     token: process.env.SLACK_BOT_TOKEN,
@@ -49,6 +50,7 @@ import {
   // beertime
   slack.message('it is now beer time!', handleBeerTimeMessage);
 
+  // Open Slack connection & start listening
   await slack.start();
 
   console.log('⚡️ Slack bot started!');
