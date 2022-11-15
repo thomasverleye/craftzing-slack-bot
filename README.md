@@ -9,7 +9,7 @@
 ### Dependencies
 
 ```bash
-# install & use correct node version
+# install node
 nvm install
 
 # dependencies
@@ -44,6 +44,13 @@ yarn lint
 
 # lint & try to fix what's possible
 yarn lint:fix
+```
+
+## Testing
+
+```bash
+# run tests
+yarn test
 ```
 
 ## Development
