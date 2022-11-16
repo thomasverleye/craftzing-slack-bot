@@ -6,7 +6,11 @@ on:
       - 'v*.*.*'
 
 jobs:
+  code-review:
+    uses: ./.github/workflows/code-review.yml
+
   docker-image:
+    needs: [code-review]
     runs-on: ubuntu-latest
     permissions:
       packages: write
