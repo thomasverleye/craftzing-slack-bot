@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "prepare": "husky install",
+    "postinstall": "is-ci || lefthook install",
     "build": "rm -rf ./dist && tsc",
     "patch": "npm version patch -m ':bookmark: v%s'",
     "minor": "npm version minor -m ':bookmark: v%s'",
