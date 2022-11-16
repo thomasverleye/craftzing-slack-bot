@@ -1,8 +1,7 @@
 # @wouterds/craftzing-slack-bot
 
 ![code-review](https://github.com/wouterds/craftzing-slack-bot/workflows/code-review/badge.svg)
-![docker-image](https://github.com/wouterds/craftzing-slack-bot/workflows/docker-image/badge.svg)
-![deploy](https://github.com/wouterds/craftzing-slack-bot/workflows/deploy/badge.svg)
+![release](https://github.com/wouterds/craftzing-slack-bot/workflows/release/badge.svg)
 
 ## Setup
 
