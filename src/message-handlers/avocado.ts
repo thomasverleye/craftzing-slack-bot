@@ -1,14 +1,7 @@
 import { GenericMessageEvent, SlackEventMiddlewareArgs } from '@slack/bolt';
+import { WebClient } from '@slack/web-api';
 import { AVOCADO_BIRTHDAY, AVOCADO_CHANNEL_POST_INTERVAL } from 'config';
-import {
-  addHours,
-  differenceInHours,
-  format,
-  formatDistanceStrict,
-  formatDistanceToNowStrict,
-} from 'date-fns';
-import ms from 'ms';
-import { sleep } from 'radash';
+import { differenceInHours, format, formatDistanceToNowStrict } from 'date-fns';
 import Imgur from 'services/imgur';
 
 // in memory cache of the last avocado image we posted
@@ -16,10 +9,12 @@ const lastPostPerChannel: Record<string, Date> = {
   // [channelId]: Date
 };
 
-export const handleAvocadoMessage = async (
-  options: SlackEventMiddlewareArgs<'message'>,
-) => {
-  const { say } = options;
+interface Options extends SlackEventMiddlewareArgs<'message'> {
+  client: WebClient;
+}
+
+export const handleAvocadoMessage = async (options: Options) => {
+  const { say, client } = options;
   const message = options.message as GenericMessageEvent;
   const { thread_ts } = message;
 
@@ -31,24 +26,10 @@ export const handleAvocadoMessage = async (
       differenceInHours(new Date(), lastPostPerChannel[message.channel]) <
         AVOCADO_CHANNEL_POST_INTERVAL
     ) {
-      const distance = formatDistanceStrict(
-        new Date(),
-        addHours(
-          lastPostPerChannel[message.channel],
-          AVOCADO_CHANNEL_POST_INTERVAL,
-        ),
-      );
-
-      await say({
-        thread_ts: thread_ts || message.event_ts,
-        text: `To avoid spamming public channels there's a limit on how many times I can post an avocado image. Channel has ${distance} more to cooldown.`,
-      });
-
-      await sleep(ms('5 seconds'));
-
-      await say({
-        thread_ts: thread_ts || message.event_ts,
-        text: `But, you can always DM with me though, as much as you want!`,
+      await client.reactions.add({
+        name: 'x',
+        channel: message.channel,
+        timestamp: message.ts,
       });
       return;
     }
@@ -59,18 +40,10 @@ export const handleAvocadoMessage = async (
 
   // antwerpen
   if (message.channel === 'C023RTSH98T') {
-    await say({
-      thread_ts: thread_ts || message.event_ts,
-      unfurl_links: false,
-      blocks: [
-        {
-          type: 'section',
-          text: {
-            type: 'mrkdwn',
-            text: "Allright allright, we'll need a couple of things before we can get started! :avocado::seedling:\n• avocado pit\n• Raspberry Pi [<https://shop.pimoroni.com/products/raspberry-pi-3-a-plus|link>]\n• cheap USB webcam [<https://www.aliexpress.com/item/1005003077609523.html|link>]",
-          },
-        },
-      ],
+    await client.reactions.add({
+      name: 'x',
+      channel: message.channel,
+      timestamp: message.ts,
     });
     return;
   }
