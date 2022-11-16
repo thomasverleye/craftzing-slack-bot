@@ -6,7 +6,6 @@ import {
   handleCroqueMessage,
   handleHelloMessage,
   handleJokeMessage,
-  handleQuoteOfTheDayMessage,
   handleTodayBirthdayMessage,
 } from './message-handlers';
 
@@ -31,7 +30,6 @@ import {
 
   // avocado
   slack.message('!avocado', handleAvocadoMessage);
-  slack.message('!quote', handleQuoteOfTheDayMessage);
 
   // joke
   slack.message('!joke', handleJokeMessage);
