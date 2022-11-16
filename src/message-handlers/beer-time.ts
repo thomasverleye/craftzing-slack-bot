@@ -1,12 +1,17 @@
-import { SlackEventMiddlewareArgs } from '@slack/bolt';
+import { GenericMessageEvent, SlackEventMiddlewareArgs } from '@slack/bolt';
+import { WebClient } from '@slack/web-api';
 
-export const handleBeerTimeMessage = async (
-  options: SlackEventMiddlewareArgs<'message'>,
-) => {
-  const { say, message } = options;
+interface Options extends SlackEventMiddlewareArgs<'message'> {
+  client: WebClient;
+}
 
-  await say({
-    text: "Ayoo, let's goooo!!! :beer::beer::beer:",
-    thread_ts: message.event_ts,
+export const handleBeerTimeMessage = async (options: Options) => {
+  const { client } = options;
+  const message = options.message as GenericMessageEvent;
+
+  await client.reactions.add({
+    name: 'beer',
+    channel: message.channel,
+    timestamp: message.ts,
   });
 };
