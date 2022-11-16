@@ -6,7 +6,7 @@ on:
   workflow_call:
 
 jobs:
-  code-review:
+  linting:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -16,4 +16,14 @@ jobs:
           cache: 'yarn'
       - run: yarn --frozen-lockfile
       - run: yarn lint
+
+  testing:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'yarn'
+      - run: yarn --frozen-lockfile
       - run: yarn test
