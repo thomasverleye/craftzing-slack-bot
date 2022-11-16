@@ -14,7 +14,7 @@
     "test": "jest --coverage"
   },
   "dependencies": {
-    "@slack/bolt": "^3.12.1",
+    "@slack/bolt": "^3.12.2",
     "@slack/web-api": "^6.7.2",
     "axios": "^1.1.3",
     "date-fns": "^2.29.3",
