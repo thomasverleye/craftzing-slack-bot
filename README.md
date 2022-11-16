@@ -1,7 +1,7 @@
 # @wouterds/craftzing-slack-bot
 
-![code-review](https://github.com/wouterds/craftzing-slack-bot/workflows/code-review/badge.svg)
-![release](https://github.com/wouterds/craftzing-slack-bot/workflows/release/badge.svg)
+[![code-review](https://github.com/wouterds/craftzing-slack-bot/workflows/code-review/badge.svg)](https://github.com/wouterds/craftzing-slack-bot/actions/workflows/code-review.yml)
+[![release](https://github.com/wouterds/craftzing-slack-bot/workflows/release/badge.svg)](https://github.com/wouterds/craftzing-slack-bot/actions/workflows/release.yml)
 
 ## Setup
 
