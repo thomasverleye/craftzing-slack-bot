@@ -1,6 +1,6 @@
 {
   "name": "@wouterds/craftzing-slack-bot",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "private": true,
   "scripts": {
     "postinstall": "is-ci || lefthook install",
