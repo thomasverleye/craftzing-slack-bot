@@ -1,7 +1,11 @@
 import { GenericMessageEvent, SlackEventMiddlewareArgs } from '@slack/bolt';
 import { WebClient } from '@slack/web-api';
-import { AVOCADO_BIRTHDAY, AVOCADO_CHANNEL_POST_INTERVAL } from 'config';
-import { differenceInHours, format, formatDistanceToNowStrict } from 'date-fns';
+import { AVOCADO_BIRTHDAY, AVOCADO_PUBLIC_POST_INTERVAL } from 'config';
+import {
+  differenceInMinutes,
+  format,
+  formatDistanceToNowStrict,
+} from 'date-fns';
 import Imgur from 'services/imgur';
 
 // in memory cache of the last avocado image we posted
@@ -20,11 +24,10 @@ export const handleAvocadoMessage = async (options: Options) => {
 
   if (message.channel_type === 'channel') {
     // try to avoid spamming the channel with avocado images
-    // if less than {AVOCADO_CHANNEL_POST_INTERVAL} hours ago, ignore
     if (
       lastPostPerChannel[message.channel] &&
-      differenceInHours(new Date(), lastPostPerChannel[message.channel]) <
-        AVOCADO_CHANNEL_POST_INTERVAL
+      differenceInMinutes(new Date(), lastPostPerChannel[message.channel]) <
+        AVOCADO_PUBLIC_POST_INTERVAL
     ) {
       await client.reactions.add({
         name: 'x',
