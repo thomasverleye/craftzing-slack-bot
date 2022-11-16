@@ -3,7 +3,6 @@
   "version": "1.1.2",
   "private": true,
   "scripts": {
-    "prepare": "husky install",
     "postinstall": "is-ci || lefthook install",
     "build": "rm -rf ./dist && tsc",
     "patch": "npm version patch -m ':bookmark: v%s'",
