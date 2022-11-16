@@ -28,7 +28,7 @@
     "tsconfig-paths": "^4.1.0"
   },
   "devDependencies": {
-    "@types/jest": "^29.0.3",
+    "@types/jest": "^29.2.3",
     "@types/ms": "^0.7.31",
     "@types/node": "^18.11.9",
     "@types/sharp": "^0.31.0",
