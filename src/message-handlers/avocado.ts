@@ -1,17 +1,8 @@
 import { GenericMessageEvent, SlackEventMiddlewareArgs } from '@slack/bolt';
 import { WebClient } from '@slack/web-api';
-import { AVOCADO_BIRTHDAY, AVOCADO_PUBLIC_POST_INTERVAL } from 'config';
-import {
-  differenceInMinutes,
-  format,
-  formatDistanceToNowStrict,
-} from 'date-fns';
+import { AVOCADO_BIRTHDAY } from 'config';
+import { format, formatDistanceToNowStrict } from 'date-fns';
 import Imgur from 'services/imgur';
-
-// in memory cache of the last avocado image we posted
-const lastPostPerChannel: Record<string, Date> = {
-  // [channelId]: Date
-};
 
 interface Options extends SlackEventMiddlewareArgs<'message'> {
   client: WebClient;
@@ -21,25 +12,6 @@ export const handleAvocadoMessage = async (options: Options) => {
   const { say, client } = options;
   const message = options.message as GenericMessageEvent;
   const { thread_ts } = message;
-
-  if (message.channel_type === 'channel') {
-    // try to avoid spamming the channel with avocado images
-    if (
-      lastPostPerChannel[message.channel] &&
-      differenceInMinutes(new Date(), lastPostPerChannel[message.channel]) <
-        AVOCADO_PUBLIC_POST_INTERVAL
-    ) {
-      await client.reactions.add({
-        name: 'x',
-        channel: message.channel,
-        timestamp: message.ts,
-      });
-      return;
-    }
-
-    // keep track of the last time we posted an avocado photo
-    lastPostPerChannel[message.channel] = new Date();
-  }
 
   if (message.channel_type === 'channel' && message.channel !== 'C023XSSPZSQ') {
     await client.reactions.add({
