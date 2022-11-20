@@ -1,3 +1,4 @@
+export * from './antwerpen';
 export * from './avocado';
 export * from './beer-time';
 export * from './croque';

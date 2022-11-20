@@ -1,6 +1,7 @@
 import { App as Slack } from '@slack/bolt';
 
 import {
+  handleAntwerpenMessage,
   handleAvocadoMessage,
   handleBeerTimeMessage,
   handleCroqueMessage,
@@ -29,6 +30,9 @@ import {
 
   // avocado
   slack.message('!avocado', handleAvocadoMessage);
+
+  // antwerpen
+  slack.message('!antwerpen', handleAntwerpenMessage);
 
   // birthdays
   slack.message("it's the birthday of", handleTodayBirthdayMessage);

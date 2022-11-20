@@ -10,3 +10,4 @@ services:
       - .env
     volumes:
       - ~/webcam.jpg:/avocado.jpg
+      - ~/webcam2.jpg:/antwerpen.jpg
