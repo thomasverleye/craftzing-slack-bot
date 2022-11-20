@@ -41,8 +41,7 @@ export const handleAvocadoMessage = async (options: Options) => {
     lastPostPerChannel[message.channel] = new Date();
   }
 
-  // antwerpen
-  if (message.channel === 'C023RTSH98T') {
+  if (message.channel_type === 'channel' && message.channel !== 'C023XSSPZSQ') {
     await client.reactions.add({
       name: 'x',
       channel: message.channel,
