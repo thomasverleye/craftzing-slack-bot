@@ -50,7 +50,7 @@ export const handleAvocadoMessage = async (options: Options) => {
     return;
   }
 
-  const url = await Imgur.upload('/webcam.jpg');
+  const url = await Imgur.upload('/avocado.jpg');
   if (!url) {
     await say({
       text: 'Sorry, having trouble uploading photo :cry:',

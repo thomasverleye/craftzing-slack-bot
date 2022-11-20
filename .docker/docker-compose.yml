@@ -9,4 +9,4 @@ services:
     env_file:
       - .env
     volumes:
-      - ~/webcam.jpg:/webcam.jpg
+      - ~/webcam.jpg:/avocado.jpg
