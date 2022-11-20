@@ -13,6 +13,7 @@ export const handleAvocadoMessage = async (options: Options) => {
   const message = options.message as GenericMessageEvent;
   const { thread_ts } = message;
 
+  // only allow avocado to be posted in #cz-office-gent channel
   if (message.channel_type === 'channel' && message.channel !== 'C023XSSPZSQ') {
     await client.reactions.add({
       name: 'x',
