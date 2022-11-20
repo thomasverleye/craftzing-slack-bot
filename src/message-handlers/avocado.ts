@@ -39,6 +39,7 @@ export const handleAvocadoMessage = async (options: Options) => {
 
   await say({
     thread_ts,
+    text: 'craftzing-avocado.jpg',
     blocks: [
       {
         type: 'section',

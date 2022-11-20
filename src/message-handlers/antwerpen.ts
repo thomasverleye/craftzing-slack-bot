@@ -38,6 +38,7 @@ export const handleAntwerpenMessage = async (options: Options) => {
 
   await say({
     thread_ts,
+    text: 'craftzing-antwerpen.jpg',
     blocks: [
       {
         type: 'image',
