@@ -8,7 +8,8 @@
     "minor": "npm version minor -m ':bookmark: v%s'",
     "major": "npm version major -m ':bookmark: v%s'",
     "dev": "nodemon",
-    "lint": "eslint --ext '.ts,.js' src && tsc --noEmit",
+    "lint": "eslint --ext '.ts,.js' src",
+    "lint:ts": "tsc --noEmit",
     "lint:fix": "eslint --ext '.ts,.js' --fix src",
     "test": "jest --coverage"
   },
